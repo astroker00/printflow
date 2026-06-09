@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Design Tokens
+───────────────────────────────────────────────────────────────────────────── */
+:root {
+  --color-navy:   #1B3A5C;
+  --color-amber:  #E87722;
+  --color-light:  #FAFAF9;
+  --color-border: #E8EEF4;
+  --radius-card:  16px;
+  --radius-btn:   10px;
+  --shadow-card:  0 2px 24px rgba(27,58,92,0.07);
+  --shadow-hover: 0 8px 40px rgba(27,58,92,0.14);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Base
+───────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  * { @apply border-stone-200; }
+
+  html { scroll-behavior: smooth; }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+
+  /* Smooth scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #d1d9e4; border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a8b9ce; }
+
+  /* Focus ring */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-amber-500 rounded;
+  }
+
+  /* Selection */
+  ::selection { background: rgba(232,119,34,0.15); color: inherit; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Component utilities
+───────────────────────────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Cards ── */
+  .card {
+    @apply bg-white rounded-2xl border border-stone-200 shadow-soft;
+  }
+  .card-hover {
+    @apply card transition-all duration-200 hover:shadow-medium hover:-translate-y-0.5;
+  }
+  .card-p {
+    @apply card p-6;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-medium
+           rounded-[10px] transition-all duration-150 focus-visible:outline-2
+           focus-visible:outline-offset-2 active:scale-[0.98] select-none
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-navy-700 text-white px-5 py-2.5 text-sm
+           hover:bg-navy-800 focus-visible:outline-navy-700
+           shadow-sm hover:shadow-md;
+  }
+  .btn-accent {
+    @apply btn bg-amber-500 text-white px-5 py-2.5 text-sm
+           hover:bg-amber-600 focus-visible:outline-amber-500
+           shadow-sm hover:shadow-glow;
+  }
+  .btn-outline {
+    @apply btn border border-stone-300 text-stone-700 px-5 py-2.5 text-sm
+           bg-white hover:bg-stone-50 hover:border-stone-400
+           focus-visible:outline-navy-700;
+  }
+  .btn-ghost {
+    @apply btn text-stone-600 px-3 py-2 text-sm
+           hover:bg-stone-100 focus-visible:outline-navy-700;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white px-5 py-2.5 text-sm
+           hover:bg-red-700 focus-visible:outline-red-600;
+  }
+
+  /* Size variants */
+  .btn-sm { @apply px-3.5 py-1.5 text-xs rounded-lg; }
+  .btn-lg { @apply px-7 py-3.5 text-base rounded-xl; }
+  .btn-xl { @apply px-9 py-4 text-lg rounded-xl; }
+
+  /* ── Form elements ── */
+  .input {
+    @apply w-full rounded-xl border border-stone-300 bg-white px-4 py-3
+           text-sm text-stone-900 placeholder:text-stone-400
+           shadow-inset-sm transition-all duration-150
+           focus:outline-none focus:ring-2 focus:ring-navy-700/20
+           focus:border-navy-600 hover:border-stone-400
+           disabled:bg-stone-50 disabled:cursor-not-allowed;
+  }
+  .input-error {
+    @apply border-red-400 focus:ring-red-200 focus:border-red-500;
+  }
+  .label {
+    @apply block text-sm font-medium text-stone-700 mb-1.5;
+  }
+  .field-error {
+    @apply mt-1.5 text-xs text-red-600;
+  }
+
+  /* ── Badges ── */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1
+           text-xs font-medium border;
+  }
+
+  /* ── Section layouts ── */
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-16 sm:py-24;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    @apply border-t border-stone-200 my-6;
+  }
+
+  /* ── Status dot ── */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Animations
+───────────────────────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Staggered entrance animations */
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+
+  /* Initial state for fade-up (before animation runs) */
+  .anim-init { opacity: 0; }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply animate-shimmer bg-[length:200%_100%] bg-shimmer-gradient bg-stone-200;
+  }
+
+  /* Noise texture overlay */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, #1B3A5C 0%, #E87722 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Print overrides
+───────────────────────────────────────────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+}
