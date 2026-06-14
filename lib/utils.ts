@@ -34,6 +34,11 @@ export function formatRelative(iso: string): string {
   return `${Math.floor(hrs / 24)}d ago`;
 }
 
+/** Format a number as currency (e.g. 1500 → "ETB 1,500.00") */
+export function formatPrice(amount: number, currency = 'ETB'): string {
+  return `${currency} ${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
 /** Phone number validation (international format) */
 export function isValidPhone(phone: string): boolean {
   return /^\+?[\d\s\-().]{7,20}$/.test(phone.trim());
